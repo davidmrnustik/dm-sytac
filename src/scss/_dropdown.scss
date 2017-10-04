@@ -1,0 +1,39 @@
+.dropdown {
+  width: 33%;
+  margin: 20px 0;
+
+  button {
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 15px;
+    -webkit-appearance: none;
+    border: 0;
+  }
+
+  ul.dropdown-wrapper {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    min-width: 160px;
+
+    li {
+      display: block;
+
+      a {
+        display: block;
+        padding: 8px 15px;
+        background-color: rgb(255, 255, 200);
+        color: gray;
+
+        &:hover {
+          background-color: rgb(255, 255, 160);
+          color: black;
+        }
+      }
+    }
+    &.show {
+      display: block;
+    }
+  }
+}

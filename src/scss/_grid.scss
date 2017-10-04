@@ -1,0 +1,17 @@
+.grid {
+  &:after {
+    @include clearfix();
+  }
+
+  .column {
+    float: left;
+
+    &.column-3 {
+      width: 100%;
+
+      @include breakpoint-min-width($breakpoint-tablet) {
+        width: 33%;
+      }
+    }
+  }
+}
