@@ -18,4 +18,6 @@ class App extends Component {
   }
 }
 
+// this is a test comment
+
 export default App;
