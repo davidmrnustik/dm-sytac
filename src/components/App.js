@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './app.scss';
+import './App.scss';
+import TrafficForm from './TrafficForm';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Header</h1>
+        <TrafficForm />
       </div>
     );
   }
