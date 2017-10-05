@@ -6,12 +6,16 @@ class TrafficSelect extends Component {
     let target = e.target;
     this.props.filter(target.getAttribute('data-type'), target.value);
   }
+  _getData() {
+    return this.props.data.map((item, index) => {
+      return <option key={index} value={item}>{item}</option>;
+    })
+  }
 
   render() {
     return (
-      <select className="traffic-select" data-type={this.props.cat} onChange={this._handleChange.bind(this)}>
-        <option value="prvni">prvni</option>
-        <option value="druha">druha</option>
+      <select className="traffic-select" data-type={this.props.category} onChange={this._handleChange.bind(this)}>
+        {this._getData()}
       </select>
     )
   }
