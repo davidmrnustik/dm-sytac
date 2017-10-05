@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.scss';
-import TrafficForm from './TrafficForm';
+import TrafficBox from './TrafficBox';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <TrafficForm />
+      <div className="app">
+        <TrafficBox />
       </div>
     );
   }

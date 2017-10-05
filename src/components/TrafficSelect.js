@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 
 class TrafficSelect extends Component {
-  constructor() {
-    super();
+
+  _handleChange(e) {
+    let target = e.target;
+    this.props.filter(target.getAttribute('data-type'), target.value);
   }
+
   render() {
     return (
-      <div>
-        <select>
-          {this.props.data.map((traffic) => {
-            let type = this.props.type;
-            return (
-              <option key={traffic.id}>{traffic[type]}</option>
-            )
-          })}
-        </select>
-      </div>
+      <select className="traffic-select" data-type={this.props.cat} onChange={this._handleChange.bind(this)}>
+        <option value="prvni">prvni</option>
+        <option value="druha">druha</option>
+      </select>
     )
   }
 }

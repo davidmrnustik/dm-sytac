@@ -30,10 +30,7 @@ module.exports = {
         exclude: [
           path.resolve(__dirname, "node_modules")
         ],
-        loader: "babel-loader",
-        options: {
-          presets: ["env"]
-        }
+        loader: "babel-loader"
       },
       {
         test: /\.scss?$/,
