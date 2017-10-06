@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class TrafficSelect extends Component {
+export default class TrafficSelect extends React.Component {
 
   _handleChange(e) {
     let target = e.target;
@@ -11,14 +12,27 @@ class TrafficSelect extends Component {
       return <option key={index} value={item}>{item}</option>;
     })
   }
+  _resetSelect() {
+    const filters = this.props.filters;
+    if(filters.type === '' || filters.type === '') {
+      return '';
+    }
+  }
 
   render() {
+    let select = this._select;
+    if((this.props.filters.type === '' || this.props.filters.type === '') && select !== undefined) {
+      select.value = '';
+    }
     return (
-      <select className="traffic-select" data-type={this.props.category} onChange={this._handleChange.bind(this)}>
-        {this._getData()}
+      <select  className="traffic-select" data-type={this.props.category} value={this._resetSelect()} onChange={this._handleChange.bind(this)}>
+        <option value=''>Choose {this.props.category}</option>
+      {this._getData()}
       </select>
     )
   }
 }
-
-export default TrafficSelect;
+TrafficSelect.propTypes = {
+  category: PropTypes.string,
+  filters: PropTypes.object
+};

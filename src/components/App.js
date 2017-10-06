@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.scss';
 import TrafficBox from './TrafficBox';
 
-class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <div className="app">
@@ -11,5 +11,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

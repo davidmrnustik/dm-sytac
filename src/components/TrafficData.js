@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class TrafficData extends Component {
+export default class TrafficData extends React.Component {
   render() {
     let colors = this.props.colors.map((color, index) => {
       return (
@@ -18,5 +19,10 @@ class TrafficData extends Component {
     )
   }
 }
-
-export default TrafficData;
+TrafficData.propTypes = {
+  id: PropTypes.number,
+  type: PropTypes.string,
+  brand: PropTypes.string,
+  colors: PropTypes.array,
+  img: PropTypes.string
+}

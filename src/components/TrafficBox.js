@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TrafficForm from './TrafficForm';
 
-class TrafficBox extends Component {
+export default class TrafficBox extends React.Component {
   render() {
     return (
       <div className="traffic-box">
@@ -10,5 +10,3 @@ class TrafficBox extends Component {
     )
   }
 }
-
-export default TrafficBox;

@@ -13,7 +13,6 @@ const extractSass = new ExtractTextPlugin({
   disable: process.env.NODE_ENV === 'development'
 });
 
-
 module.exports = {
   entry: "./src/index.js",
   output: {
