@@ -35,16 +35,19 @@ export default class TrafficForm extends React.Component {
   _setFilter(type, value) {
     this.setState({ filter: { type, value } });
   }
-  _getData(data) {
-    return (
-      <div className="traffic-data-wrapper">
-        {this.state.data.map((item) => {
-          return (
-            <TrafficData key={item.id} {...item} />
-          )
-        })}
-      </div>
-    )
+  _getData() {
+    let type = this.state.filter.type;
+    let value = this.state.filter.value;
+
+    if(type !== '') {
+      return this.state.data.map((item) => {
+        if(Array.isArray(item[type]) && item[type].indexOf(value) != -1 || item[type] === value){
+          return <TrafficData key={item.id} {...item} />
+        }
+      })
+    } else {
+      return 'There is no filter selected!';
+    }
   }
   _getSelectForm() {
     return (
@@ -58,7 +61,7 @@ export default class TrafficForm extends React.Component {
       </div>
     )
   }
-  _sortData(category){
+  _sortData(category) {
     let data = [];
 
     this.state.data.map((item) => {
@@ -78,12 +81,7 @@ export default class TrafficForm extends React.Component {
     })
     return data;
   }
-  _filterData(){
-    this.state.data.filter((item) => {
-      //
-    })
-  }
-  componentDidMount(){
+  componentDidMount() {
     this.setState({ loading: true });
     this._fetchData(); // fetch data from service 'trafficMeister' after a component is rendered
   }

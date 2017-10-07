@@ -20,10 +20,6 @@ export default class TrafficSelect extends React.Component {
   }
 
   render() {
-    let select = this._select;
-    if((this.props.filters.type === '' || this.props.filters.type === '') && select !== undefined) {
-      select.value = '';
-    }
     return (
       <select  className="traffic-select" data-type={this.props.category} value={this._resetSelect()} onChange={this._handleChange.bind(this)}>
         <option value=''>Choose {this.props.category}</option>
