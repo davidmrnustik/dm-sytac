@@ -1,6 +1,6 @@
 import React from 'react';
 import TrafficSelect from './TrafficSelect';
-import TrafficData from './TrafficData';
+import { TrafficData } from './TrafficData';
 import { TrafficFilterSelection } from './TrafficFilterSelection';
 import Reset from './Reset';
 import trafficMeister from '../../service/index';
@@ -16,7 +16,6 @@ export default class TrafficForm extends React.Component {
 
     this.state = {
       loading: false,
-      data: [],
       filter: {
         type: '',
         value: ''

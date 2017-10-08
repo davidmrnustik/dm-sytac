@@ -7,8 +7,8 @@ export default class TrafficSelect extends React.Component {
     super();
 
     this._handleChange = this._handleChange.bind(this);
+    this._resetSelect = this._resetSelect.bind(this);
   }
-
   _handleChange(e) {
     let target = e.target;
     this.props.filter(target.getAttribute('data-type'), target.value);
@@ -26,12 +26,17 @@ export default class TrafficSelect extends React.Component {
       return filters.value;
     }
   }
-
   render() {
+    let defaultOption;
+    if(this.props.category === 'type' && this.props.filters.type === 'brand' && this.props.filters.value != ''){
+      defaultOption = ''
+    } else {
+      defaultOption = <option value=''>Choose {this.props.category}</option>
+    }
     return (
-      <select  className="traffic-select" data-type={this.props.category} value={this._resetSelect()} onChange={this._handleChange}>
-        <option value=''>Choose {this.props.category}</option>
-      {this._getData()}
+      <select className="traffic-select" data-type={this.props.category} value={this._resetSelect()} onChange={this._handleChange} ref={(input) => this._select = input}>
+        {defaultOption}
+        {this._getData()}
       </select>
     )
   }
