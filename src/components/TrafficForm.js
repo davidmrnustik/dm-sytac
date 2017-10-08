@@ -2,7 +2,7 @@ import React from 'react';
 import TrafficSelect from './TrafficSelect';
 import TrafficData from './TrafficData';
 import { TrafficFilterSelection } from './TrafficFilterSelection';
-import Button from './Button';
+import Reset from './Reset';
 import trafficMeister from '../../service/index';
 import _ from 'underscore';
 
@@ -10,12 +10,13 @@ export default class TrafficForm extends React.Component {
   constructor() {
     super();
 
+    this.data = [];
+    this.categories = ['type', 'brand', 'colors'];
     this._setFilter = this._setFilter.bind(this);
 
     this.state = {
       loading: false,
       data: [],
-      categories: ['type', 'brand', 'colors'],
       filter: {
         type: '',
         value: ''
@@ -25,7 +26,8 @@ export default class TrafficForm extends React.Component {
   _fetchData() {
     trafficMeister.fetchData( (err, data) => {
       if(!err && data.length > 0) {
-        this.setState({ data, loading: false });
+        this.data = data;
+        this.setState({ loading: false });
       } else {
         console.log("There is something wrong with data: " + err);
         this.setState({ loading: false });
@@ -35,24 +37,15 @@ export default class TrafficForm extends React.Component {
   _setFilter(type, value) {
     this.setState({ filter: { type, value } });
   }
-  _getData() {
-    let type = this.state.filter.type;
-    let value = this.state.filter.value;
-
-    if(type !== '') {
-      return this.state.data.map((item) => {
-        if(Array.isArray(item[type]) && item[type].indexOf(value) != -1 || item[type] === value){
-          return <TrafficData key={item.id} {...item} />
-        }
-      })
-    } else {
-      return 'There is no filter selected!';
-    }
+  _getFilteredData() {
+    return this._filterData().map((item) => {
+      return <TrafficData key={item.id} {...item} />
+    });
   }
   _getSelectForm() {
     return (
       <div className="traffic-select-wrapper">
-        {this.state.categories.map((category, index) => {
+        {this.categories.map((category, index) => {
           let filteredData = this._sortData(category);
           return (
             <TrafficSelect data={filteredData} category={category} filters={this.state.filter} filter={this._setFilter} key={index} />
@@ -61,12 +54,26 @@ export default class TrafficForm extends React.Component {
       </div>
     )
   }
+  _isFiltering() {
+    return this.state.filter.value !== '' ? true:false;
+  }
+  _filterData() {
+    const type = this.state.filter.type;
+    const value = this.state.filter.value;
+
+    if(this._isFiltering()) {
+      return this.data.filter((item) => {
+        return item[type] == value || item[type].indexOf(value) != -1;
+      })
+    } else {
+      return this.data;
+    }
+  }
   _sortData(category) {
     let data = [];
 
-    this.state.data.map((item) => {
-      let objKeys = Object.keys(item);
-      objKeys.map((key) => {
+    this._filterData().map((item) => {
+      for(let key in item){
         if (key === category) {
           if(Array.isArray(item[key])) {
             data.push(item[key]);
@@ -76,8 +83,8 @@ export default class TrafficForm extends React.Component {
             data.indexOf(item[key]) === -1 ? data.push(item[key]):null;
             // check if an item exist to keep an uniqueness
           }
-        }
-      })
+        } 
+      }
     })
     return data;
   }
@@ -92,16 +99,16 @@ export default class TrafficForm extends React.Component {
     if (this.state.loading) {
       return <h2>Loading</h2>;
     }
-    if(this.state.filter.type !== '') {
+    if(this._isFiltering()) {
       filtering = (
         <div className="traffic-filtering">
           <h5>Vyhledavame</h5>
-          <Button filter={this._setFilter} text="Reset" />
+          <Reset filter={this._setFilter} text="Reset" />
         </div>
       )
     }
-    if (this.state.data.length !== 0){
-      const data = this._getData(); 
+    if (this.data.length !== 0){
+      const data = this._isFiltering() ? this._getFilteredData():'There is no filter selected!';
       selectForms = this._getSelectForm(); 
       content = (
         <div className="traffic-content">

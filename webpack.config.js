@@ -45,6 +45,7 @@ module.exports = {
       }
     ]
   },
+  devtool: 'source-map',
   plugins: [
     extractSass,
     HtmlWebpackPluginConfig

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Button extends React.Component {
+export default class Reset extends React.Component {
   constructor() {
     super();
 
@@ -18,6 +18,6 @@ export default class Button extends React.Component {
   }
 }
 
-Button.propTypes = {
+Reset.propTypes = {
   text: PropTypes.string
 }
