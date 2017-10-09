@@ -17,7 +17,7 @@ const VehicleDetail = (props) => {
       <p className="item-img">{props.img}</p>
     </div>
   );
-}
+};
 
 VehicleDetail.propTypes = {
   id: PropTypes.number,
@@ -25,6 +25,6 @@ VehicleDetail.propTypes = {
   brand: PropTypes.string,
   colors: PropTypes.array,
   img: PropTypes.string
-}
+};
 
 export default VehicleDetail;

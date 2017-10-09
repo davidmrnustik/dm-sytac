@@ -24,6 +24,6 @@ class ResetFiltersButton extends React.Component {
 
 ResetFiltersButton.propTypes = {
   text: PropTypes.string
-}
+};
 
 export default ResetFiltersButton;

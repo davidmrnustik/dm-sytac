@@ -51,6 +51,14 @@ module.exports = {
         loader: "babel-loader"
       },
       {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: [
+          path.resolve(__dirname, "node_modules")
+        ],
+        loader: "eslint-loader"
+      },
+      {
         test: /\.scss?$/,
         use: extractSass.extract({
           use: [{

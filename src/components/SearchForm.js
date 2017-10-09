@@ -32,9 +32,9 @@ class SearchForm extends React.Component {
     const { t } = this.props;
     let defaultOption;
     if(this.props.category === 'type' && this.props.filterCategory === 'brand' && this.props.filterValue !== ''){
-      defaultOption = ''
+      defaultOption = '';
     } else {
-      defaultOption = <option value=''>{t('SEARCH.CHOOSE')} {this.props.category}</option>
+      defaultOption = <option value=''>{t('SEARCH.CHOOSE')} {this.props.category}</option>;
     }
     return (
       <select

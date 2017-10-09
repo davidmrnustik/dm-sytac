@@ -8,11 +8,11 @@ const SearchSelections = (props) => {
       <p>Filter value: {props.value || 'No applied filter yet.'}</p>
     </div>
   );
-}
+};
 
 SearchSelections.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string
-}
+};
 
 export default SearchSelections;

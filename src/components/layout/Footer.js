@@ -6,7 +6,7 @@ class Footer extends React.Component {
       <div className="footer">
         <p>This is footer</p>
       </div>
-    )
+    );
   }
 }
 

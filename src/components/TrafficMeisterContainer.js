@@ -39,7 +39,7 @@ class TrafficMeisterContainer extends React.Component {
 
   _showVehicleDetail() {
     return this._filterData().map((entry) => {
-      return <VehicleDetail key={entry.id} {...entry} />
+      return <VehicleDetail key={entry.id} {...entry} />;
     });
   }
 
@@ -55,7 +55,7 @@ class TrafficMeisterContainer extends React.Component {
           setFilters={this._setFilters}
           key={index}
         />
-      )
+      );
     });
   }
 
@@ -70,7 +70,7 @@ class TrafficMeisterContainer extends React.Component {
     if (this._isSearching()) {
       return this.data.filter((entry) => {
         return entry[category] == value || entry[category].indexOf(value) !== -1;
-      })
+      });
     } else {
       return this.data;
     }
@@ -90,9 +90,9 @@ class TrafficMeisterContainer extends React.Component {
             data.indexOf(entry[key]) === -1 ? data.push(entry[key]):null;
             // check if an entry exist to keep an uniqueness
           }
-        } 
+        }
       };
-    })
+    });
     return data;
   }
 
@@ -110,7 +110,7 @@ class TrafficMeisterContainer extends React.Component {
     let noDataMessage;
 
     if (this.state.loading) {
-      return <LoadingScreen text={t('LOADING.TEXT')} />
+      return <LoadingScreen text={t('LOADING.TEXT')} />;
     }
     if (this._isSearching()) {
       isSearching = (
@@ -121,7 +121,7 @@ class TrafficMeisterContainer extends React.Component {
             text={t('SEARCH.RESET_FILTERS')}
           />
         </div>
-      )
+      );
     }
     if (this.data.length !== 0) {
       vehicleDetail = this._isSearching() ? this._showVehicleDetail():t('ERRORS.NO_FILTERS');
@@ -132,12 +132,12 @@ class TrafficMeisterContainer extends React.Component {
             value={this.state.filterValue}
           />
         </div>
-      )
+      );
       searchForm = (
         <div className="traffic-search-form">
           {this._showSearchForm()}
         </div>
-      )
+      );
     } else {
       noDataMessage = <p className="no-data-message">{t('ERRORS.NO_DATA')}</p>;
     }

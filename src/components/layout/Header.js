@@ -6,7 +6,7 @@ class Header extends React.Component {
       <div className="header">
         <p>This is header</p>
       </div>
-    )
+    );
   }
 }
 
