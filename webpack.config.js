@@ -1,6 +1,18 @@
+require('dotenv').config();
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
+const PROD = process.env.NODE_ENV === 'production' ? true:false
+
+const plugins = () => {
+  let plugin = [extractSass,HtmlWebpackPluginConfig];
+  if(PROD){
+    plugin.push(UglifyJSPluginConfig);
+  }
+  return plugin;
+}
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, 'src/index.html'),
@@ -8,10 +20,17 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 });
 
+const UglifyJSPluginConfig = new UglifyJSPlugin({
+  test: /\.js/,
+  sourceMap: true
+});
+
 const extractSass = new ExtractTextPlugin({
   filename: '[name].css',
-  disable: process.env.NODE_ENV === 'development'
+  disable: PROD
 });
+
+
 
 module.exports = {
   entry: "./src/index.js",
@@ -46,8 +65,5 @@ module.exports = {
     ]
   },
   devtool: 'source-map',
-  plugins: [
-    extractSass,
-    HtmlWebpackPluginConfig
-  ]
+  plugins: plugins()
 }

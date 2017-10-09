@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TrafficData = (props) => {
-  let colors = props.colors.map((color, index) => {
+const VehicleDetail = (props) => {
+  const colors = props.colors.map((color, index) => {
     return (
       <p key={index}>{color}</p>
-    )
+    );
   });
+
   return (
     <div className="traffic-data">
       <p className="item-id">{props.id}</p>
@@ -15,12 +16,15 @@ export const TrafficData = (props) => {
       <div className="item-colors">{colors}</div>
       <p className="item-img">{props.img}</p>
     </div>
-  )
+  );
 }
-TrafficData.propTypes = {
+
+VehicleDetail.propTypes = {
   id: PropTypes.number,
   type: PropTypes.string,
   brand: PropTypes.string,
   colors: PropTypes.array,
   img: PropTypes.string
 }
+
+export default VehicleDetail;

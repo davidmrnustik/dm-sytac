@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import TrafficMeisterApp from './components/TrafficMeisterApp';
 
-ReactDOM.render(<App />, document.getElementById('main'));
+ReactDOM.render(<TrafficMeisterApp />, document.getElementById('main'));
