@@ -4,7 +4,9 @@ import SearchForm from './SearchForm';
 import VehicleDetail from './VehicleDetail';
 import SearchSelections from './SearchSelections';
 import ResetFiltersButton from './ResetFiltersButton';
+import LoadingScreen from './LoadingScreen';
 import trafficMeister from '../../service/index';
+import { translate } from 'react-polyglot';
 
 class TrafficMeisterContainer extends React.Component {
   constructor(props) {
@@ -24,11 +26,10 @@ class TrafficMeisterContainer extends React.Component {
     trafficMeister.fetchData( (err, data) => {
       if (!err && data.length > 0) {
         this.data = data;
-        this.setState({ loading: false });
       } else {
-        console.log("There is something wrong with data: " + err);
-        this.setState({ loading: false });
+        console.log(t('ERRORS.SOMETHING_WRONG_WITH_DATA') + err);
       }
+      this.setState({ loading: false });
     });
   }
 
@@ -101,6 +102,7 @@ class TrafficMeisterContainer extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
     let isSearching;
     let searchSelections;
     let searchForm;
@@ -108,21 +110,21 @@ class TrafficMeisterContainer extends React.Component {
     let noDataMessage;
 
     if (this.state.loading) {
-      return <h2>Loading...</h2>;
+      return <LoadingScreen text={t('LOADING.TEXT')} />
     }
     if (this._isSearching()) {
       isSearching = (
         <div className="traffic-search-status">
-          <h5>Vyhledavame</h5>
+          <h5>{t('SEARCH.SEARCHING')}</h5>
           <ResetFiltersButton
             filters={this._setFilters}
-            text="Reset filters"
+            text={t('SEARCH.RESET_FILTERS')}
           />
         </div>
       )
     }
     if (this.data.length !== 0) {
-      vehicleDetail = this._isSearching() ? this._showVehicleDetail():'There is no filter selected!';
+      vehicleDetail = this._isSearching() ? this._showVehicleDetail():t('ERRORS.NO_FILTERS');
       searchSelections = (
         <div className="search-selections">
           <SearchSelections
@@ -137,7 +139,7 @@ class TrafficMeisterContainer extends React.Component {
         </div>
       )
     } else {
-      noDataMessage = <p className="no-data-message">There are no data!</p>;
+      noDataMessage = <p className="no-data-message">{t('ERRORS.NO_DATA')}</p>;
     }
 
     return (
@@ -152,4 +154,4 @@ class TrafficMeisterContainer extends React.Component {
   }
 }
 
-export default TrafficMeisterContainer;
+export default translate()(TrafficMeisterContainer);

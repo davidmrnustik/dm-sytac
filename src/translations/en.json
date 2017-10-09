@@ -1,0 +1,17 @@
+{
+  "language": "en-GB",
+  "version": "1.0.0",
+  "ERRORS": {
+    "NO_DATA": "There are no data!",
+    "NO_FILTERS": "There is no filter selected!",
+    "SOMETHING_WRONG_WITH_DATA": "There is something wrong with data: "
+  },
+  "LOADING": {
+    "TEXT": "Loading..."
+  },
+  "SEARCH": {
+    "SEARCHING": "Searching...",
+    "RESET_FILTERS": "Reset filters",
+    "CHOOSE": "Choose"
+  }
+}

@@ -24,9 +24,11 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
+    "node-polyglot": "^2.2.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "react-polyglot": "^0.2.4"
   },
   "scripts": {
     "build": "webpack",

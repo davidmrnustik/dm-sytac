@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ResetFiltersButton extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._handleResetFilterClick = this._handleResetFilterClick.bind(this);
   }
+
   _handleResetFilterClick(e) {
     e.preventDefault();
     this.props.filters('', '');
   }
+
   render() {
     return (
       <button
