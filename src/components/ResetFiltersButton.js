@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
 class ResetFiltersButton extends React.Component {
   constructor(props) {
@@ -14,10 +15,10 @@ class ResetFiltersButton extends React.Component {
 
   render() {
     return (
-      <button
+      <Button
         onClick={this._handleResetFilterClick || '#'}
-        className="button-reset-filters">
-        {this.props.text}</button>
+        text={this.props.text}
+      />
     );
   }
 }

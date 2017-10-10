@@ -6,11 +6,13 @@ import SearchSelections from './SearchSelections';
 import ResetFiltersButton from './ResetFiltersButton';
 import LoadingScreen from './LoadingScreen';
 import trafficMeister from '../../service/index';
+import PropTypes from 'prop-types';
 import { translate } from 'react-polyglot';
 
 class TrafficMeisterContainer extends React.Component {
   constructor(props) {
     super(props);
+
     this.data = [];
     this.categories = ['type', 'brand', 'colors'];
     this._setFilters = this._setFilters.bind(this);
@@ -23,6 +25,8 @@ class TrafficMeisterContainer extends React.Component {
   }
 
   _fetchData() {
+    const { t } = this.props;
+
     trafficMeister.fetchData( (err, data) => {
       if (!err && data.length > 0) {
         this.data = data;
@@ -37,12 +41,6 @@ class TrafficMeisterContainer extends React.Component {
     this.setState({ filterCategory, filterValue });
   }
 
-  _showVehicleDetail() {
-    return this._filterData().map((entry) => {
-      return <VehicleDetail key={entry.id} {...entry} />;
-    });
-  }
-
   _showSearchForm() {
     return this.categories.map((category, index) => {
       let data = this._handleDataForSearchForm(category);
@@ -52,7 +50,7 @@ class TrafficMeisterContainer extends React.Component {
           category={category}
           filterValue={this.state.filterValue}
           filterCategory={this.state.filterCategory}
-          setFilters={this._setFilters}
+          onChange={this._setFilters}
           key={index}
         />
       );
@@ -109,6 +107,12 @@ class TrafficMeisterContainer extends React.Component {
     let vehicleDetail;
     let noDataMessage;
 
+    const showVehicleDetail = () => {
+      return this._filterData().map((entry) => {
+        return <VehicleDetail key={entry.id} {...entry} />;
+      });
+    };
+
     if (this.state.loading) {
       return <LoadingScreen text={t('LOADING.TEXT')} />;
     }
@@ -124,7 +128,7 @@ class TrafficMeisterContainer extends React.Component {
       );
     }
     if (this.data.length !== 0) {
-      vehicleDetail = this._isSearching() ? this._showVehicleDetail():t('ERRORS.NO_FILTERS');
+      vehicleDetail = this._isSearching() ? showVehicleDetail():t('ERRORS.NO_FILTERS');
       searchSelections = (
         <div className="search-selections">
           <SearchSelections
@@ -153,5 +157,9 @@ class TrafficMeisterContainer extends React.Component {
     );
   }
 }
+
+TrafficMeisterContainer.propTypes = {
+  t: PropTypes.func.isRequired
+};
 
 export default translate()(TrafficMeisterContainer);

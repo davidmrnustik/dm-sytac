@@ -4,7 +4,8 @@
   "ERRORS": {
     "NO_DATA": "There are no data!",
     "NO_FILTERS": "There is no filter selected!",
-    "SOMETHING_WRONG_WITH_DATA": "There is something wrong with data: "
+    "SOMETHING_WRONG_WITH_DATA": "There is something wrong with data: ",
+    "NO_APPLIED_FILTER": "No applied filter yet."
   },
   "LOADING": {
     "TEXT": "Loading..."
