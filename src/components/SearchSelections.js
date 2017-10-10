@@ -7,8 +7,8 @@ const SearchSelections = (props) => {
 
   return (
     <div className="filter-selection">
-      <p>Filter select: {props.type || t('ERRORS.NO_APPLIED_FILTER')}</p>
-      <p>Filter value: {props.value || t('ERRORS.NO_APPLIED_FILTER')}</p>
+      <p>{t('SEARCH.FILTER_SELECT')} {props.type || t('ERRORS.NO_APPLIED_FILTER')}</p>
+      <p>{t('SEARCH.FILTER_VALUE')} {props.value || t('ERRORS.NO_APPLIED_FILTER')}</p>
     </div>
   );
 };

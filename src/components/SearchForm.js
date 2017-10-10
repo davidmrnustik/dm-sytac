@@ -33,6 +33,7 @@ class SearchForm extends React.Component {
     } else {
       defaultOption = <option value=''>{t('SEARCH.CHOOSE')} {this.props.category}</option>;
     }
+
     return (
       <select
         className="traffic-select"

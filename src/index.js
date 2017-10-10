@@ -1,15 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { BrowserRouter as Router, hashHistory } from 'react-router-dom';
 import { I18n } from 'react-polyglot';
 import english from './translations/en';
-import TrafficMeisterApp from './components/TrafficMeisterApp';
+import routes from './routes';
 
 const locale = 'en';
 const messages = english;
 
-ReactDOM.render(
+render(
   <I18n locale={locale} messages={messages}>
-    <TrafficMeisterApp />
+    <Router history={hashHistory}>
+      {routes}
+    </Router>
   </I18n>,
   document.getElementById('main')
 );

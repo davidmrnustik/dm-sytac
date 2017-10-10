@@ -12,7 +12,6 @@ import { translate } from 'react-polyglot';
 class TrafficMeisterContainer extends React.Component {
   constructor(props) {
     super(props);
-
     this.data = [];
     this.categories = ['type', 'brand', 'colors'];
     this._setFilters = this._setFilters.bind(this);
@@ -39,22 +38,6 @@ class TrafficMeisterContainer extends React.Component {
 
   _setFilters(filterCategory, filterValue) {
     this.setState({ filterCategory, filterValue });
-  }
-
-  _showSearchForm() {
-    return this.categories.map((category, index) => {
-      let data = this._handleDataForSearchForm(category);
-      return (
-        <SearchForm
-          data={data}
-          category={category}
-          filterValue={this.state.filterValue}
-          filterCategory={this.state.filterCategory}
-          onChange={this._setFilters}
-          key={index}
-        />
-      );
-    });
   }
 
   _isSearching() {
@@ -113,6 +96,22 @@ class TrafficMeisterContainer extends React.Component {
       });
     };
 
+    const showSearchForm = () => {
+      return this.categories.map((category, index) => {
+        let data = this._handleDataForSearchForm(category);
+        return (
+          <SearchForm
+            data={data}
+            category={category}
+            filterValue={this.state.filterValue}
+            filterCategory={this.state.filterCategory}
+            onChange={this._setFilters}
+            key={index}
+          />
+        );
+      });
+    };
+
     if (this.state.loading) {
       return <LoadingScreen text={t('LOADING.TEXT')} />;
     }
@@ -139,7 +138,7 @@ class TrafficMeisterContainer extends React.Component {
       );
       searchForm = (
         <div className="traffic-search-form">
-          {this._showSearchForm()}
+          {showSearchForm()}
         </div>
       );
     } else {

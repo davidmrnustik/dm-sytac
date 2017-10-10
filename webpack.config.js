@@ -12,7 +12,7 @@ const plugins = () => {
     plugin.push(UglifyJSPluginConfig);
   }
   return plugin;
-}
+};
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, 'src/index.html'),
@@ -29,8 +29,6 @@ const extractSass = new ExtractTextPlugin({
   filename: '[name].css',
   disable: PROD
 });
-
-
 
 module.exports = {
   entry: "./src/index.js",

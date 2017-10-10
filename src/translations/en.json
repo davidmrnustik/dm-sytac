@@ -13,6 +13,8 @@
   "SEARCH": {
     "SEARCHING": "Searching...",
     "RESET_FILTERS": "Reset filters",
-    "CHOOSE": "Choose"
+    "CHOOSE": "Choose",
+    "FILTER_SELECT": "Filter select:",
+    "FILTER_VALUE": "Filter value:"
   }
 }
