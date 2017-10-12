@@ -1,23 +1,28 @@
 require('dotenv').config();
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var webpack = require('webpack');
+var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, 'src/index.html'),
   filename: 'index.html',
   inject: 'body'
 });
 
-const UglifyJSPluginConfig = new UglifyJSPlugin({
+var UglifyJSPluginConfig = new UglifyJSPlugin({
   test: /\.js/,
   sourceMap: true
 });
 
-const extractSass = new ExtractTextPlugin({
+var extractSass = new ExtractTextPlugin({
   filename: '[name].css'
 });
+
+var GLOBALS = {
+  'process.env.NODE_ENV': JSON.stringify('production')
+};
 
 module.exports = {
   entry: "./src/index.js",
@@ -61,8 +66,10 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
     extractSass,
     HtmlWebpackPluginConfig,
+    new webpack.DefinePlugin(GLOBALS),
     UglifyJSPluginConfig
   ]
 };

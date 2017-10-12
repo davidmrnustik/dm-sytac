@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-import webpack from 'webpack';
-import webpackConfig from '../webpack.config.prod';
-import colors from 'colors';
+var webpack = require('webpack');
+var webpackConfig = require('../webpack.config.prod');
+var colors = require('colors');
 
 process.env.NODE_ENV = 'production';
 
