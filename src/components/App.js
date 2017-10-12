@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TrafficMeisterContainer from './TrafficMeisterContainer';
+import TrafficMeisterContainer from './trafficMeister/TrafficMeisterContainer';
 import './App.scss';
 
 class App extends React.Component {

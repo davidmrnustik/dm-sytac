@@ -6,10 +6,9 @@ const Header = (props) => {
   const { t } = props;
 
   return (
-    <ul>
-      <li><Link to="/">{t('PAGES.HOME')}</Link></li>
-      <li><Link to="/about">{t('PAGES.ABOUT')}</Link></li>
-    </ul>
+    <div>
+      This is Header
+    </div>
   );
 };
 

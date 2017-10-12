@@ -6,8 +6,8 @@ import Button from './Button';
 const props = {
   onClick: () => {},
   text: "Reset all filters"
-}
-const wrapper = shallow(<Button {...props} />)
+};
+const wrapper = shallow(<Button {...props} />);
 
 describe('Button component via Enzyme', () => {
   it('renders button with text', () => {

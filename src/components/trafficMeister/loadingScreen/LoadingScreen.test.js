@@ -5,8 +5,8 @@ import LoadingScreen from './LoadingScreen';
 
 const props = {
   text: "Loading..."
-}
-const wrapper = shallow(<LoadingScreen {...props} />)
+};
+const wrapper = shallow(<LoadingScreen {...props} />);
 
 describe('Loading screen component', () => {
   it('renders div with h2 and text', () => {

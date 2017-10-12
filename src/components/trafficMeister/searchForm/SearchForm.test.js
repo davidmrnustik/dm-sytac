@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import SearchForm from './SearchForm';
 import Polyglot from 'node-polyglot';
-import english from '../translations/en';
+import english from '../../../translations/en';
 import PropTypes from 'prop-types';
 
 const polyglot = new Polyglot({
@@ -21,14 +21,14 @@ const props = {
     'airplane',
     'train'
   ]
-}
+};
 
 class WrapClassSearchForm extends React.Component {
   getChildContext() {
-    return { t: polyglot.t.bind(polyglot) }
+    return { t: polyglot.t.bind(polyglot) };
   }
   render() {
-    return <SearchForm {...props} />
+    return <SearchForm {...props} />;
   }
 }
 WrapClassSearchForm.childContextTypes = {
@@ -36,9 +36,9 @@ WrapClassSearchForm.childContextTypes = {
   category: PropTypes.string,
   filterValue: PropTypes.string,
   filterCategory: PropTypes.string
-}
+};
 
-const wrapper = mount(<WrapClassSearchForm {...props} />)
+const wrapper = mount(<WrapClassSearchForm {...props} />);
 
 describe('Search Form Component', () => {
   it('renderes the main container', () => {

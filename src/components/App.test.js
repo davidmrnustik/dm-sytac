@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import App from './App';
 
-const wrapper = shallow(<App />)
+const wrapper = shallow(<App />);
 
 describe('Initialize Main App', () => {
   it('renders main div element', () => {

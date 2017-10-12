@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import SearchInfo from './SearchInfo';
 import Polyglot from 'node-polyglot';
-import english from '../translations/en';
+import english from '../../../translations/en';
 import PropTypes from 'prop-types';
 
 const polyglot = new Polyglot({
@@ -13,24 +13,24 @@ const polyglot = new Polyglot({
 
 class WrapClassSearchInfo extends React.Component {
   getChildContext() {
-    return { t: polyglot.t.bind(polyglot) }
+    return { t: polyglot.t.bind(polyglot) };
   }
   render() {
-    return <SearchInfo />
+    return <SearchInfo />;
   }
 }
 WrapClassSearchInfo.childContextTypes = {
   t: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.string
-}
+};
 
 const props = {
   t: () => {},
   type: "brand",
   value: "Bugatti Veyron",
-}
-const wrapper = mount(<WrapClassSearchInfo {...props} />)
+};
+const wrapper = mount(<WrapClassSearchInfo {...props} />);
 
 describe('Search Info component via Enzyme', () => {
   it('renders div element with text in paragraph', ()=> {

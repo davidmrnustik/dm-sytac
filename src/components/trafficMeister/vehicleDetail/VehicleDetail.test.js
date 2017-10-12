@@ -9,9 +9,9 @@ const props = {
   brand: "Porsche",
   colors: ['black'],
   img: "http://www.porsche.com/paramera.jpg"
-}
+};
 
-const wrapper = shallow(<VehicleDetail {...props} />)
+const wrapper = shallow(<VehicleDetail {...props} />);
 
 describe('Vehicle details component', () => {
   it('renders div elements', () => {

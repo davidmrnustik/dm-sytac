@@ -1,11 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
-import SearchForm from './SearchForm';
-import VehicleDetail from './VehicleDetail';
-import SearchInfo from './SearchInfo';
-import ResetFilters from './ResetFilters';
-import LoadingScreen from './LoadingScreen';
-import trafficMeister from '../../service/index';
+import SearchForm from './searchForm/SearchForm';
+import VehicleDetail from './vehicleDetail/VehicleDetail';
+import SearchInfo from './searchInfo/SearchInfo';
+import ResetFilters from './resetFilters/ResetFilters';
+import LoadingScreen from './loadingScreen/LoadingScreen';
+import trafficMeister from '../../../service/index';
 import PropTypes from 'prop-types';
 import { translate } from 'react-polyglot';
 
@@ -99,7 +99,7 @@ class TrafficMeisterContainer extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({ loading: true });
     this._fetchData(); // fetch data from service 'trafficMeister' after a component is rendered
   }
