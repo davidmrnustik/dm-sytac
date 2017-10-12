@@ -1,58 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-polyglot';
+import Select from 'react-select';
+import '../../../scss/reactSelect/default.scss';
+import Button from '../../commons/button/Button';
 
 class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this._handleSearchFilterChange = this._handleSearchFilterChange.bind(this);
+    this._resetFilters = this._resetFilters.bind(this);
   }
 
-  _handleSearchFilterChange(e) {
-    let target = e.target;
-    this.props.onChange(target.getAttribute('data-category'), target.value);
+  _handleSearchFilterChange(val) {
+    const select = this._select;
+    this.props.onChange(select.props['data-category'], val.value);
   }
 
-  _showOptionData() {
-    return this.props.data.map((entry, index) => {
-      return <option key={index} value={entry}>{entry}</option>;
-    });
+  _resetFilters(e) {
+    e.preventDefault();
+    this.props.onChange('', '');
   }
 
   render() {
-    let defaultOption;
-    const { t } = this.props;
-    const selectValue = () => {
-      if(this.props.filterCategory === '' || this.props.filterValue === '') {
-        return '';
-      } else {
-        return this.props.filterValue;
-      }
-    };
+    let resetButton;
+    const { t, category, filterValue, filterCategory, options } = this.props;
 
-    if(this.props.category === 'type' && this.props.filterCategory === 'brand' && this.props.filterValue !== ''){
-      defaultOption = '';
-    } else {
-      defaultOption = <option value=''>{t('SEARCH.CHOOSE')} {this.props.category}</option>;
+    if(category === filterCategory) {
+      resetButton = (
+        <Button
+          onClick={this._resetFilters}
+          text={t('SEARCH.CLEAR_FILTER')}
+        />
+      );
     }
 
     return (
-      <select
-        className="traffic-select"
-        data-category={this.props.category}
-        value={selectValue()}
-        onChange={this._handleSearchFilterChange}
-      >
-        {defaultOption}
-        {this._showOptionData()}
-      </select>
+      <div>
+        <Select
+          style={{width:300}}
+          data-category={category}
+          options={options}
+          className="traffic-select"
+          value={filterValue}
+          onChange={this._handleSearchFilterChange}
+          ref={(select => this._select = select)}
+          clearable={false}
+          placeholder={`${t('SEARCH.CHOOSE')} ${category}`}
+        />
+        {resetButton}
+      </div>
     );
   }
 }
 
 SearchForm.propTypes = {
   t: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  options: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   filterValue: PropTypes.string.isRequired,
   filterCategory: PropTypes.string.isRequired

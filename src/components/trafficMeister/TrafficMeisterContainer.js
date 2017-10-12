@@ -58,23 +58,32 @@ class TrafficMeisterContainer extends React.Component {
   }
 
   _handleDataForSearchForm(category) {
-    let data = [];
+    let filteredData = [];
+    let finalData = [];
 
     this._filterData().map((entry) => {
       for(let key in entry){
         if (key === category) {
           if (Array.isArray(entry[key])) {
-            data.push(entry[key]);
-            data = _.uniq(_.flatten(data));
+            filteredData.push(entry[key]);
+            filteredData = _.uniq(_.flatten(filteredData));
             // if value is an array, we apply underscore' methods to flatten them and apply uniqueness
           } else {
-            data.indexOf(entry[key]) === -1 ? data.push(entry[key]):null;
+            filteredData.indexOf(entry[key]) === -1 ? filteredData.push(entry[key]):null;
             // check if an entry exist to keep an uniqueness
           }
         }
       };
     });
-    return data;
+
+    filteredData.map((entry) => {
+      let obj = {};
+      obj.value = entry;
+      obj.label = entry;
+      finalData.push(obj);
+    });
+
+    return finalData;
   }
 
   _showVehicleDetail() {
@@ -88,7 +97,7 @@ class TrafficMeisterContainer extends React.Component {
       let data = this._handleDataForSearchForm(category);
       return (
         <SearchForm
-          data={data}
+          options={data}
           category={category}
           filterValue={this.state.filterValue}
           filterCategory={this.state.filterCategory}
