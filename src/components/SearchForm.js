@@ -13,6 +13,12 @@ class SearchForm extends React.Component {
     this.props.onChange(target.getAttribute('data-category'), target.value);
   }
 
+  _showOptionData() {
+    return this.props.data.map((entry, index) => {
+      return <option key={index} value={entry}>{entry}</option>;
+    });
+  }
+
   render() {
     let defaultOption;
     const { t } = this.props;
@@ -23,11 +29,7 @@ class SearchForm extends React.Component {
         return this.props.filterValue;
       }
     };
-    const showData = () => {
-      return this.props.data.map((entry, index) => {
-        return <option key={index} value={entry}>{entry}</option>;
-      });
-    };
+
     if(this.props.category === 'type' && this.props.filterCategory === 'brand' && this.props.filterValue !== ''){
       defaultOption = '';
     } else {
@@ -42,7 +44,7 @@ class SearchForm extends React.Component {
         onChange={this._handleSearchFilterChange}
       >
         {defaultOption}
-        {showData()}
+        {this._showOptionData()}
       </select>
     );
   }
@@ -50,6 +52,7 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   t: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
   category: PropTypes.string.isRequired,
   filterValue: PropTypes.string.isRequired,
   filterCategory: PropTypes.string.isRequired

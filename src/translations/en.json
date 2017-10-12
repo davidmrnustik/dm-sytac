@@ -16,5 +16,9 @@
     "CHOOSE": "Choose",
     "FILTER_SELECT": "Filter select:",
     "FILTER_VALUE": "Filter value:"
+  },
+  "PAGES": {
+    "HOME": "Home",
+    "ABOUT": "About"
   }
 }

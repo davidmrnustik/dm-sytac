@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 
-class ResetFiltersButton extends React.Component {
+class ResetFilters extends React.Component {
   constructor(props) {
     super(props);
     this._handleResetFilterClick = this._handleResetFilterClick.bind(this);
@@ -23,8 +23,8 @@ class ResetFiltersButton extends React.Component {
   }
 }
 
-ResetFiltersButton.propTypes = {
+ResetFilters.propTypes = {
   text: PropTypes.string
 };
 
-export default ResetFiltersButton;
+export default ResetFilters;

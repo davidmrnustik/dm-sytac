@@ -2,8 +2,8 @@ import React from 'react';
 import _ from 'underscore';
 import SearchForm from './SearchForm';
 import VehicleDetail from './VehicleDetail';
-import SearchSelections from './SearchSelections';
-import ResetFiltersButton from './ResetFiltersButton';
+import SearchInfo from './SearchInfo';
+import ResetFilters from './ResetFilters';
 import LoadingScreen from './LoadingScreen';
 import trafficMeister from '../../service/index';
 import PropTypes from 'prop-types';
@@ -77,6 +77,28 @@ class TrafficMeisterContainer extends React.Component {
     return data;
   }
 
+  _showVehicleDetail() {
+    return this._filterData().map((entry) => {
+      return <VehicleDetail key={entry.id} {...entry} />;
+    });
+  }
+
+  _showSearchForm() {
+    return this.categories.map((category, index) => {
+      let data = this._handleDataForSearchForm(category);
+      return (
+        <SearchForm
+          data={data}
+          category={category}
+          filterValue={this.state.filterValue}
+          filterCategory={this.state.filterCategory}
+          onChange={this._setFilters}
+          key={index}
+        />
+      );
+    });
+  }
+
   componentDidMount() {
     this.setState({ loading: true });
     this._fetchData(); // fetch data from service 'trafficMeister' after a component is rendered
@@ -90,28 +112,6 @@ class TrafficMeisterContainer extends React.Component {
     let vehicleDetail;
     let noDataMessage;
 
-    const showVehicleDetail = () => {
-      return this._filterData().map((entry) => {
-        return <VehicleDetail key={entry.id} {...entry} />;
-      });
-    };
-
-    const showSearchForm = () => {
-      return this.categories.map((category, index) => {
-        let data = this._handleDataForSearchForm(category);
-        return (
-          <SearchForm
-            data={data}
-            category={category}
-            filterValue={this.state.filterValue}
-            filterCategory={this.state.filterCategory}
-            onChange={this._setFilters}
-            key={index}
-          />
-        );
-      });
-    };
-
     if (this.state.loading) {
       return <LoadingScreen text={t('LOADING.TEXT')} />;
     }
@@ -119,7 +119,7 @@ class TrafficMeisterContainer extends React.Component {
       isSearching = (
         <div className="traffic-search-status">
           <h5>{t('SEARCH.SEARCHING')}</h5>
-          <ResetFiltersButton
+          <ResetFilters
             filters={this._setFilters}
             text={t('SEARCH.RESET_FILTERS')}
           />
@@ -127,10 +127,10 @@ class TrafficMeisterContainer extends React.Component {
       );
     }
     if (this.data.length !== 0) {
-      vehicleDetail = this._isSearching() ? showVehicleDetail():t('ERRORS.NO_FILTERS');
+      vehicleDetail = this._isSearching() ? this._showVehicleDetail():t('ERRORS.NO_FILTERS');
       searchSelections = (
         <div className="search-selections">
-          <SearchSelections
+          <SearchInfo
             type={this.state.filterCategory}
             value={this.state.filterValue}
           />
@@ -138,7 +138,7 @@ class TrafficMeisterContainer extends React.Component {
       );
       searchForm = (
         <div className="traffic-search-form">
-          {showSearchForm()}
+          {this._showSearchForm()}
         </div>
       );
     } else {

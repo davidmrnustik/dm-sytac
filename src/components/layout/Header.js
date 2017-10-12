@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { translate } from 'react-polyglot';
 
-class Header extends React.Component {
-  render() {
-    return (
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-      </ul>
-    );
-  }
-}
+const Header = (props) => {
+  const { t } = props;
 
-export default Header;
+  return (
+    <ul>
+      <li><Link to="/">{t('PAGES.HOME')}</Link></li>
+      <li><Link to="/about">{t('PAGES.ABOUT')}</Link></li>
+    </ul>
+  );
+};
+
+export default translate()(Header);
