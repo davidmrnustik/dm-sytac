@@ -16,11 +16,9 @@
     "CLEAR_FILTER": "Clear filter",
     "CHOOSE": "Choose",
     "FILTER_SELECT": "Filter select:",
-    "FILTER_VALUE": "Filter value:"
-  },
-  "PAGES": {
-    "HOME": "Home",
-    "ABOUT": "About"
+    "FILTER_VALUE": "Filter value:",
+    "PLEASE_CHOOSE": "Please choose one of the above...",
+    "PLEASE_REFRESH": "Please refresh"
   },
   "HEADER": {
     "TEXT": "This is header"

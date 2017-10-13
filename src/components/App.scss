@@ -35,9 +35,12 @@ input, textarea, table {
   @include clearfix();
 }
 a {
-  text-decoration: none;
   cursor: pointer;
   color: $link-color;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 strong {
   font-weight: 800;

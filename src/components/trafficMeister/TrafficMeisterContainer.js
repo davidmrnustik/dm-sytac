@@ -10,6 +10,7 @@ import Row from '../commons/row/Row';
 import Grid from '../commons/grid/Grid';
 import Logo from '../commons/logo/Logo';
 import Notification from '../commons/notification/Notification';
+import { Link } from 'react-router-dom';
 import './TrafficMeisterContainer.scss';
 
 class TrafficMeisterContainer extends React.Component {
@@ -137,7 +138,12 @@ class TrafficMeisterContainer extends React.Component {
           </Grid>
         );
       } else {
-        vehicleDetail = <Notification className="no-filter-selected">{t('ERRORS.NO_FILTERS')}</Notification>;
+        vehicleDetail = (
+          <Notification className="no-filter-selected">
+            {t('ERRORS.NO_FILTERS')}<br />
+            {t('SEARCH.PLEASE_CHOOSE')}
+            </Notification>
+        );
       }
       searchForm = (
         <div className="search-form">
@@ -147,7 +153,12 @@ class TrafficMeisterContainer extends React.Component {
         </div>
       );
     } else {
-      noDataMessage = <Notification className="no-data-message">{t('ERRORS.NO_DATA')}</Notification>;
+      noDataMessage = (
+        <Notification className="no-data-message">
+          {t('ERRORS.NO_DATA')}<br />
+          <a href="/">{t('SEARCH.PLEASE_REFRESH')}</a>
+        </Notification>
+      );
     }
 
     return (
