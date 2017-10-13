@@ -18,4 +18,4 @@ I use `eslint`, `mocha` and `babel-node` to execute some scripts defined in `pac
 
 `$ npm run test` To process tests via `mocha`. 
 
-`$ npm run deploy` There is some auto-deploy to `master` of my repository of this project.
+`$ npm run deploy` There is some auto-deploy to `master` of my GitHub repository of this project. There is also a hook on GitHub that notifies Heroku platform after every `git push`, to make a new build. 
