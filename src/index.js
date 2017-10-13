@@ -14,5 +14,5 @@ render(
       {routes}
     </Router>
   </I18n>,
-  document.getElementById('main')
+  document.getElementById('app')
 );

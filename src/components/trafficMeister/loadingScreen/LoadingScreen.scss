@@ -1,0 +1,11 @@
+@import '../../../assets/scss/mixins/utils';
+@import '../../../assets/scss/mixins/fonts';
+
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include flexbox();
+  @include font-size(16);
+  text-align: center;
+}

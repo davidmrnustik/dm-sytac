@@ -1,0 +1,17 @@
+@import '../../assets/scss/variables';
+
+.traffic-meister-box {
+  position: relative;
+
+  .header {
+    position: fixed;
+    width: 100vw;
+    // height: $header-height;
+    /* Rectangle: */
+    background: rgba(244,244,244,0.88);
+    z-index: 3;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 10px $inner-margin;
+  }
+}

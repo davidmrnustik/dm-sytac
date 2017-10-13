@@ -1,0 +1,32 @@
+// Grid system for 2 columns. You can set value for a padding gap.
+// Usage: @include grid_2-columns(10px);
+
+@mixin grid_2-columns($gap){
+  width: 100%;
+  padding-bottom: 20px;
+
+  @include custom-breakpoint-min($breakpoint-tablet) {
+    width: 50%;
+
+    &:nth-child(odd) {
+      padding-right: ($gap / 2);
+    }
+    &:nth-child(even) {
+      padding-left: ($gap / 2);
+    }
+  }
+  &_remove-bottom {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+// Grid system for 3 columns. You can set value for a padding gap.
+// Usage: @include grid_2-columns(10px);
+
+@mixin grid_3-columns($gap){
+  & {
+    padding-left: $gap / 2;
+    padding-right: $gap / 2;
+  }
+}

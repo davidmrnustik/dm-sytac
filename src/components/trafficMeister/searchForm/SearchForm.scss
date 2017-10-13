@@ -1,0 +1,45 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins/fonts';
+@import '../../../assets/scss/mixins/media-queries';
+
+.search-form {
+  width: 100%;
+
+  @include custom-breakpoint-min($breakpoint-tablet) {
+    order: 2;
+    flex-grow: 2;
+    padding-left: 15px;
+  }
+  .select-flex-wrapper {
+    position: relative;
+    
+    @include custom-breakpoint-min($breakpoint-tablet) {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+  }
+
+  .reset-filters {
+    border: 0;
+    @include font-size(16);
+    outline: none;
+    color: $color-main;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    right: -27px;
+    top: 8px;
+
+    @include custom-breakpoint-min($breakpoint-tablet) {
+      position: relative;
+      top: 0;
+      right: 0;
+      order: 2;
+    }
+
+    &[disabled] {
+      color: #ccc;
+    }
+  }
+
+}

@@ -21,5 +21,12 @@
   "PAGES": {
     "HOME": "Home",
     "ABOUT": "About"
+  },
+  "HEADER": {
+    "TEXT": "This is header"
+  },
+  "LOGO": {
+    "TRAFFIC": "Traffic",
+    "MEISTER": "Meister"
   }
 }

@@ -1,7 +1,72 @@
-@import '../scss/variables';
-@import '../scss/mixins/media-queries';
-@import '../scss/mixins/utils';
-@import '../scss/reset';
-@import '../scss/body';
-@import '../scss/grid';
-@import '../scss/dropdown';
+@import '../assets/scss/variables';
+@import '../assets/scss/mixins/media-queries';
+@import '../assets/scss/mixins/utils';
+@import '../assets/scss/mixins/fonts';
+@import '../assets/scss/reset';
+
+%basicStyle {
+  font-family: $font-primary;
+  @include font-size(14);
+  font-weight: 400;
+  color: $color-main;
+  line-height: 1.4em;
+  overflow: auto;
+}
+html {
+  font-size: $font-base-size;
+  height: 100%;
+  box-sizing: border-box;
+
+  @include custom-breakpoint-min($breakpoint-big) {
+    font-size: 100%; /* 16px */
+  }
+}
+body {
+  @extend %basicStyle;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+  height: 100%;
+}
+input, textarea, table {
+  @extend %basicStyle;
+}
+.clearfix {
+  @include clearfix();
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: $link-color;
+}
+strong {
+  font-weight: 800;
+}
+img {
+  max-width: 100%;
+}
+#app {
+  position: relative;
+  height: 100%;
+}
+.container {
+  position: relative;
+  min-height: 100%;
+}
+.flexMiddle {
+  @include custom-breakpoint-min($breakpoint-phablet) {
+    @include flexbox();
+  }
+}
+.inner {
+  margin: 0 auto;
+  max-width: $inner-max-width;
+  position: relative;
+
+  &:not(.inner_responsive) {
+    @include custom-breakpoint-max($breakpoint-desktop) {
+      margin-left: $responsive-gap;
+      margin-right: $responsive-gap;
+    }
+  }
+}

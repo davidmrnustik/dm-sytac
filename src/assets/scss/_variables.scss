@@ -1,0 +1,26 @@
+// Fonts
+$font-primary: 'montserrat', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+$browser-context: 16;
+$font-base-size: 87.5%; /* base 14px */
+
+// Colors
+$color-orange: #FFA905;
+$color-main: #303030;
+$link-color: $color-orange;
+
+// Breakpoints
+$breakpoint-phablet: 640px;
+$breakpoint-tablet: 800px;
+$breakpoint-desktop: 1024px;
+$breakpoint-big: 1300px;
+
+// Inner
+$inner-max-width: 1080px;
+$inner-margin: 30px;
+
+// Grid
+$grid-gap: 30px !default;
+$responsive-gap: $grid-gap;
+
+// Header
+$header-height: 60px;

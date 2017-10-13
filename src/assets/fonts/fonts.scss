@@ -1,0 +1,30 @@
+/* place *.eot font at the end to avoid IE 10 console error message*/
+@each $f_family, $f_filename, $f_weight in
+  ('montserrat', 'montserrat-regular', 500),
+  ('montserrat', 'montserrat-bold', 700),
+  ('fontawesome', 'fontawesome', 'normal')
+{
+  @font-face {
+    font-family: $f_family;
+    src: url('./#{$f_filename}-webfont.woff2') format('woff2'),
+         url('./#{$f_filename}-webfont.woff') format('woff'),
+         url('./#{$f_filename}-webfont.ttf') format('truetype'),
+         url('./#{$f_filename}-webfont.svg##{$f_family}') format('svg'),
+         url('./#{$f_filename}-webfont.eot');
+    font-weight: $f_weight;
+    font-style: normal;
+  }
+}
+
+// CSS rules for every used icon of Font Awesome.
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.fa-ban:before {
+  content: "\f05e";
+}

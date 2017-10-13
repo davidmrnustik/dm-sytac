@@ -70,7 +70,7 @@ var trafficMeister;
       type: 'car',
       brand: 'Ferrari F40',
       colors: ['red', 'yellow'],
-      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/F40ferarri20090509.jpg/560px-F40ferarri20090509.jpg'
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/F40_Ferrari_20090509.jpg/640px-F40_Ferrari_20090509.jpg'
     },
     {
       id: 11,

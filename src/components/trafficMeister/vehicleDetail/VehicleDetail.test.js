@@ -11,17 +11,14 @@ const props = {
   img: "http://www.porsche.com/paramera.jpg"
 };
 
-const wrapper = shallow(<VehicleDetail {...props} />);
+const wrapper = mount(<VehicleDetail {...props} />);
 
 describe('Vehicle details component', () => {
   it('renders div elements', () => {
-    expect(wrapper.find('div').length).toBe(2);
+    expect(wrapper.find('.grid__column').length).toBe(1);
   });
   it('renders vehicle details', () => {
-    expect(wrapper.find('.item-id').text()).toEqual('12');
-    expect(wrapper.find('.item-type').text()).toEqual('car');
-    expect(wrapper.find('.item-brand').text()).toEqual('Porsche');
-    expect(wrapper.find('.item-colors p').text()).toEqual('black');
-    expect(wrapper.find('.item-img').text()).toEqual('http://www.porsche.com/paramera.jpg');
+    expect(wrapper.find('.vehicle-info-brand').text()).toEqual('Porsche');
+    expect(wrapper.find('.vehicle-info-img').first().props().title).toBe(props.brand);
   });
 });

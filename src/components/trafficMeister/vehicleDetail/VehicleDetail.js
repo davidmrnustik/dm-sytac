@@ -1,27 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Col from '../../commons/col/Col';
+import './VehicleDetail.scss';
 
-const VehicleDetail = (props) => {
-  const colors = props.colors.map((color, index) => {
+const VehicleDetail = ({ brand, colors, img }) => {
+  const vehicleColors = colors.map((color, index) => {
     return (
-      <p key={index}>{color}</p>
+      <i className={`color-${color}`} key={index}></i>
     );
   });
+  const imgBg = {
+    backgroundImage: `url("${img}")`,
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    width: '100%',
+    height: '100%'
+  };
 
   return (
-    <div className="traffic-data">
-      <p className="item-id">{props.id}</p>
-      <p className="item-type">{props.type}</p>
-      <p className="item-brand">{props.brand}</p>
-      <div className="item-colors">{colors}</div>
-      <p className="item-img">{props.img}</p>
-    </div>
+    <Col>
+      <div className="vehicle-info">
+        <div className="vehicle-info-brand">
+          <div className="vehicle-info-colors">{vehicleColors}</div>
+          {brand}
+        </div>
+      </div>
+      <div className="vehicle-info-img" title={brand} style={imgBg}></div>
+    </Col>
   );
 };
 
 VehicleDetail.propTypes = {
-  id: PropTypes.number,
-  type: PropTypes.string,
   brand: PropTypes.string,
   colors: PropTypes.array,
   img: PropTypes.string

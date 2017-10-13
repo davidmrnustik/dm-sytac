@@ -25,7 +25,7 @@ webpack(webpackConfig).run((err, stats) => {
     info.warnings.map(warning => console.log(warning.yellow));
   }
 
-  console.log(`Webpack statsinfo: ${stats}`);
+  console.log(`Webpack stats info: ${stats}`);
 
   console.log(`App has been compiled in production mode`.green);
 

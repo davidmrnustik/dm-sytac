@@ -1,0 +1,22 @@
+@mixin clearfix(){
+  content: '';
+  width: 100%;
+  display: block;
+  clear: both;
+}
+@mixin flexbox($align: center){
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: $align;
+
+  @include ieHack() {
+    align-items: center; // IE 10+ hack
+  }
+}
+@mixin ieHack(){
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+    @content;
+  }
+}

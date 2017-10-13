@@ -1,0 +1,20 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins/fonts';
+@import '../../../assets/scss/mixins/media-queries';
+
+.logo {
+  display: none;
+
+  @include custom-breakpoint-min($breakpoint-tablet) {
+    order: 1;
+    display: block;
+  }
+
+  span {
+    display: block;
+    font-weight: 700;
+    @include font-size(16);
+    text-transform: uppercase;
+    line-height: 1.1em;
+  }
+}

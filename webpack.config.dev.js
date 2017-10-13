@@ -1,4 +1,3 @@
-require('dotenv').config();
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -17,6 +16,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "bundle.js",
+    publicPath: '/',
     path: path.resolve(__dirname, "build")
   },
   module: {
@@ -49,7 +49,10 @@ module.exports = {
           }],
           fallback: "style-loader"
         })
-
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=/fonts/[name].[ext]'
       }
     ]
   },

@@ -2,12 +2,15 @@ import React from 'react';
 import _ from 'underscore';
 import SearchForm from './searchForm/SearchForm';
 import VehicleDetail from './vehicleDetail/VehicleDetail';
-import SearchInfo from './searchInfo/SearchInfo';
-import ResetFilters from './resetFilters/ResetFilters';
 import LoadingScreen from './loadingScreen/LoadingScreen';
 import trafficMeister from '../../../service/index';
 import PropTypes from 'prop-types';
 import { translate } from 'react-polyglot';
+import Row from '../commons/row/Row';
+import Grid from '../commons/grid/Grid';
+import Logo from '../commons/logo/Logo';
+import Notification from '../commons/notification/Notification';
+import './TrafficMeisterContainer.scss';
 
 class TrafficMeisterContainer extends React.Component {
   constructor(props) {
@@ -70,7 +73,7 @@ class TrafficMeisterContainer extends React.Component {
             // if value is an array, we apply underscore' methods to flatten them and apply uniqueness
           } else {
             filteredData.indexOf(entry[key]) === -1 ? filteredData.push(entry[key]):null;
-            // check if an entry exist to keep an uniqueness
+            // check if an entry exists
           }
         }
       };
@@ -82,6 +85,8 @@ class TrafficMeisterContainer extends React.Component {
       obj.label = entry;
       finalData.push(obj);
     });
+    // we take data from previous process and create an object
+    // with speficic properties for component react-select
 
     return finalData;
   }
@@ -110,13 +115,12 @@ class TrafficMeisterContainer extends React.Component {
 
   componentWillMount() {
     this.setState({ loading: true });
-    this._fetchData(); // fetch data from service 'trafficMeister' after a component is rendered
+    this._fetchData();
+    // fetch data from service 'trafficMeister' before a component is rendered
   }
 
   render() {
     const { t } = this.props;
-    let isSearching;
-    let searchSelections;
     let searchForm;
     let vehicleDetail;
     let noDataMessage;
@@ -124,44 +128,37 @@ class TrafficMeisterContainer extends React.Component {
     if (this.state.loading) {
       return <LoadingScreen text={t('LOADING.TEXT')} />;
     }
-    if (this._isSearching()) {
-      isSearching = (
-        <div className="traffic-search-status">
-          <h5>{t('SEARCH.SEARCHING')}</h5>
-          <ResetFilters
-            filters={this._setFilters}
-            text={t('SEARCH.RESET_FILTERS')}
-          />
-        </div>
-      );
-    }
+
     if (this.data.length !== 0) {
-      vehicleDetail = this._isSearching() ? this._showVehicleDetail():t('ERRORS.NO_FILTERS');
-      searchSelections = (
-        <div className="search-selections">
-          <SearchInfo
-            type={this.state.filterCategory}
-            value={this.state.filterValue}
-          />
-        </div>
-      );
+      if(this._isSearching()) {
+        vehicleDetail = (
+          <Grid className="vehicle-detail grid_center" col={3}>
+            {this._showVehicleDetail()}
+          </Grid>
+        );
+      } else {
+        vehicleDetail = <Notification className="no-filter-selected">{t('ERRORS.NO_FILTERS')}</Notification>;
+      }
       searchForm = (
-        <div className="traffic-search-form">
-          {this._showSearchForm()}
+        <div className="search-form">
+          <Grid className="grid_center" col={3}>
+            {this._showSearchForm()}
+          </Grid>
         </div>
       );
     } else {
-      noDataMessage = <p className="no-data-message">{t('ERRORS.NO_DATA')}</p>;
+      noDataMessage = <Notification className="no-data-message">{t('ERRORS.NO_DATA')}</Notification>;
     }
 
     return (
-      <div className="traffic-meister-container">
-        {isSearching}
-        {searchSelections}
-        {searchForm}
+      <Row className="traffic-meister-container">
+        <div className="header">
+          <Logo />
+          {searchForm}
+        </div>
         {vehicleDetail}
         {noDataMessage}
-      </div>
+      </Row>
     );
   }
 }

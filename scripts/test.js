@@ -4,7 +4,6 @@ process.env.NODE_ENV = 'test';
 // before our tests run.
 require('babel-register')();
 
-
 // Configure Enzyme adapter before tests
 var enzyme = require('enzyme');
 var Adapter = require('enzyme-adapter-react-16');
@@ -17,6 +16,7 @@ require.extensions['.css'] = function () {return null;};
 require.extensions['.png'] = function () {return null;};
 require.extensions['.jpg'] = function () {return null;};
 
+// Configure JSDOM for Enzyme mount
 const { JSDOM } = require('jsdom');
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
