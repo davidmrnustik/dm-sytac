@@ -2,9 +2,18 @@ import expect from 'expect';
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import VehicleDetail from './VehicleDetail';
+import Polyglot from 'node-polyglot';
+import english from '../../../translations/en';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
+
+const polyglot = new Polyglot({
+  locale: 'en',
+  phrases: english
+});
 
 const props = {
+  t: () => {},
   id: 12,
   type: "car",
   brand: "Porsche",
@@ -12,7 +21,19 @@ const props = {
   img: "http://www.porsche.com/paramera.jpg"
 };
 
-const wrapper = shallow(<VehicleDetail {...props} />);
+class WrapClassVehicleDetailContainer extends React.Component {
+  getChildContext() {
+    return { t: polyglot.t.bind(polyglot) };
+  }
+  render() {
+    return <VehicleDetail />;
+  }
+}
+WrapClassVehicleDetailContainer.childContextTypes = {
+  t: PropTypes.func
+};
+
+const wrapper = mount(<WrapClassVehicleDetailContainer {...props} />);
 
 describe('Vehicle details component', () => {
   it('renders div elements', () => {

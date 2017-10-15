@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Col from '../../commons/col/Col';
+import { translate } from 'react-polyglot';
 import './VehicleDetail.scss';
 import Modal from 'react-modal';
 import { ModalCustomStyles } from '../../commons/modal/ModalCustomStyles';
@@ -26,13 +27,14 @@ class VehicleDetail extends React.Component {
   }
 
   render() {
-    const colors = this.props.colors.map((color, index) => {
+    const { t, brand, img, colors } = this.props;
+    const vehicleColors = colors.map((color, index) => {
       return (
         <i className={`color-${color}`} key={index}></i>
       );
     });
     const imgBg = {
-      backgroundImage: `url("${this.props.img}")`,
+      backgroundImage: `url("${img}")`,
       backgroundPosition: 'center center',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
@@ -44,11 +46,11 @@ class VehicleDetail extends React.Component {
       <Col>
         <div className="vehicle-info" onClick={this._openModal}>
           <div className="vehicle-info-brand">
-            <div className="vehicle-info-colors">{colors}</div>
-            {this.props.brand}
+            <div className="vehicle-info-colors">{vehicleColors}</div>
+            {brand}
           </div>
         </div>
-        <div className="vehicle-info-img" title={this.props.brand} style={imgBg}></div>
+        <div className="vehicle-info-img" title={brand} style={imgBg}></div>
 
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -56,8 +58,8 @@ class VehicleDetail extends React.Component {
           style={ModalCustomStyles}
           shouldCloseOnOverlayClick={true}
           contentLabel="Vehicle detail">
-          <img src={this.props.img} title={this.props.brand} onClick={this._closeModal} style={ModalCustomStyles.modalImage} />
-          <button style={ ModalCustomStyles.modalClose } onClick={this._closeModal}>close</button>
+          <img src={img} title={brand} onClick={this._closeModal} style={ModalCustomStyles.modalImage} />
+          <button style={ ModalCustomStyles.modalClose } onClick={this._closeModal}>{t('MODAL.CLOSE')}</button>
         </Modal>
       </Col>
     );
@@ -65,9 +67,10 @@ class VehicleDetail extends React.Component {
 }
 
 VehicleDetail.propTypes = {
+  t: PropTypes.func.isRequired,
   brand: PropTypes.string,
   colors: PropTypes.array,
   img: PropTypes.string
 };
 
-export default VehicleDetail;
+export default translate()(VehicleDetail);

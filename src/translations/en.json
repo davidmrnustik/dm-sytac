@@ -26,5 +26,8 @@
   "LOGO": {
     "TRAFFIC": "Traffic",
     "MEISTER": "Meister"
+  },
+  "MODAL": {
+    "CLOSE": "close"
   }
 }
