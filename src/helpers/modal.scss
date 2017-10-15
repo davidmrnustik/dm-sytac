@@ -1,0 +1,63 @@
+@import '../assets/scss/variables';
+@import '../assets/scss/mixins/fonts';
+
+.modal {
+  position: fixed;
+  z-index: 0;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: rgba(0, 0, 0, .85);
+  opacity: 0;
+  display: none;
+  -webkit-transition: opacity 0.15s linear, z-index 0.15s linear;
+  transition: opacity 0.15s linear, z-index 0.15s linear;
+  touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+
+  &_open {
+    opacity: 1;
+    z-index: 999;
+  }
+}
+.modal-page {
+  overflow: hidden;
+}
+.js-modal-close {
+  cursor: pointer;
+}
+.modal__content {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.modal__close {
+  position: absolute;
+  top: 12px;
+  font-family: $font-primary;
+  line-height: 1.0em;
+  right: 16px;
+  color: #fff;
+  cursor: pointer;
+  @include font-size(16);
+}
+.modal__content_container {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+
+  .image-container {
+    width: 90vw;
+    height: 90vh;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat; 
+  }
+}
