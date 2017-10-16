@@ -85,16 +85,21 @@ class TrafficMeisterContainer extends React.Component {
           if (key === category){
             if (Array.isArray(value)){
               arr.push(value);
+              // if an entry is an array, we push entry to another array for further processing
             } else {
               result.indexOf(value) === -1 ? result.push(value):null;
+              // check if an entry exists
             }
           }
         };
       });
       if (arr.length !== 0) {
         result = _.uniq(_.flatten(arr));
+        // apply underscore' methods to flatten them and apply uniqueness
       }
       let options = [];
+      // we take data from previous process and create an object 'obj'
+      // with speficic properties for component react-select
       for(let entry in result) {
         let obj = {};
         obj.value = result[entry];
@@ -119,8 +124,9 @@ class TrafficMeisterContainer extends React.Component {
   }
 
   componentWillMount() {
-    this._fetchData();
     this.setState({ loading: true });
+    this._fetchData();
+    // fetch data from service 'trafficMeister' before a component is rendered
   }
 
   render() {
