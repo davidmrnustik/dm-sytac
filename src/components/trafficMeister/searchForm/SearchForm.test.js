@@ -14,8 +14,10 @@ const polyglot = new Polyglot({
 const props = {
   t: () => {},
   category: 'type',
-  filterValue: 'car',
-  filterCategory: 'type',
+  filter: {
+    type: 'car',
+    category: 'type'
+  },
   options: [
     { value:'car', label:'car' },
     { value:'airplane', label:'airplane' },
@@ -34,8 +36,7 @@ class WrapClassSearchForm extends React.Component {
 WrapClassSearchForm.childContextTypes = {
   t: PropTypes.func,
   category: PropTypes.string,
-  filterValue: PropTypes.string,
-  filterCategory: PropTypes.string
+  filter: PropTypes.object
 };
 
 const wrapper = mount(<WrapClassSearchForm {...props} />);

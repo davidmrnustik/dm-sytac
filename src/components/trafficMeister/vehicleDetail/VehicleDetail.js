@@ -25,14 +25,12 @@ class VehicleDetail extends React.Component {
   _closeModal() {
     this.setState({ modalIsOpen: false });
   }
+  _getColors(color, index) {
+    return <i className={`color-${color}`} key={index}></i>;
+  }
 
   render() {
     const { t, brand, img, colors } = this.props;
-    const vehicleColors = colors.map((color, index) => {
-      return (
-        <i className={`color-${color}`} key={index}></i>
-      );
-    });
     const imgBg = {
       backgroundImage: `url("${img}")`,
       backgroundPosition: 'center center',
@@ -46,7 +44,7 @@ class VehicleDetail extends React.Component {
       <Col>
         <div className="vehicle-info" onClick={this._openModal}>
           <div className="vehicle-info-brand">
-            <div className="vehicle-info-colors">{vehicleColors}</div>
+            <div className="vehicle-info-colors">{colors.map(this._getColors)}</div>
             {brand}
           </div>
         </div>

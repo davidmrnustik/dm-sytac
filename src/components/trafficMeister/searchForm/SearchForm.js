@@ -4,9 +4,7 @@ import { translate } from 'react-polyglot';
 import Select from 'react-select';
 import '../../commons/reactSelect/default.scss';
 import Button from '../../commons/button/Button';
-import Row from '../../commons/row/Row';
 import Col from '../../commons/col/Col';
-import Grid from '../../commons/grid/Grid';
 import './SearchForm.scss';
 
 class SearchForm extends React.Component {
@@ -23,18 +21,18 @@ class SearchForm extends React.Component {
 
   _resetFilters(e) {
     e.preventDefault();
-    this.props.onChange('', '');
+    this.props.resetFilters();
   }
 
   render() {
     let resetButton;
-    const { t, category, filterValue, filterCategory, options } = this.props;
+    const { t, category, options, filter } = this.props;
 
     resetButton = (
       <Button
         onClick={this._resetFilters}
         className="reset-filters fa fa-ban"
-        disabled={category === filterCategory ? false:true}
+        disabled={category === filter.category ? false:true}
       />
     );
 
@@ -45,10 +43,10 @@ class SearchForm extends React.Component {
             data-category={category}
             options={options}
             className="traffic-select"
-            value={filterValue}
-            onChange={this._handleSearchFilterChange}
-            ref={(select => this._select = select)}
             clearable={false}
+            value={filter.value}
+            ref={(select => this._select = select)}
+            onChange={this._handleSearchFilterChange}
             placeholder={`${t('SEARCH.CHOOSE')} ${category}`}
           />
           {resetButton}
@@ -63,8 +61,7 @@ SearchForm.propTypes = {
   options: PropTypes.array.isRequired,
   onChange: PropTypes.func,
   category: PropTypes.string.isRequired,
-  filterValue: PropTypes.string.isRequired,
-  filterCategory: PropTypes.string.isRequired
+  filter: PropTypes.object.isRequired
 };
 
 export default translate()(SearchForm);

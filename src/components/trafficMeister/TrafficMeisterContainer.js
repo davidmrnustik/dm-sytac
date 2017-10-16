@@ -10,7 +10,6 @@ import Row from '../commons/row/Row';
 import Grid from '../commons/grid/Grid';
 import Logo from '../commons/logo/Logo';
 import Notification from '../commons/notification/Notification';
-import { Link } from 'react-router-dom';
 import './TrafficMeisterContainer.scss';
 
 class TrafficMeisterContainer extends React.Component {
@@ -18,12 +17,16 @@ class TrafficMeisterContainer extends React.Component {
     super(props);
     this.data = [];
     this.categories = ['type', 'brand', 'colors'];
-    this._setFilters = this._setFilters.bind(this);
+    this._changeFilters = this._changeFilters.bind(this);
+    this._resetFilters = this._resetFilters.bind(this);
 
     this.state = {
+      data: [],
       loading: false,
-      filterCategory: '',
-      filterValue: ''
+      filter: {
+        category: '',
+        value: ''
+      }
     };
   }
 
@@ -33,97 +36,97 @@ class TrafficMeisterContainer extends React.Component {
     trafficMeister.fetchData( (err, data) => {
       if (!err && data.length > 0) {
         this.data = data;
+        this.setState({ data, loading: false });
       } else {
         console.log(t('ERRORS.SOMETHING_WRONG_WITH_DATA') + err);
+        this.setState({ loading: false });
       }
-      this.setState({ loading: false });
     });
-  }
-
-  _setFilters(filterCategory, filterValue) {
-    this.setState({ filterCategory, filterValue });
   }
 
   _isSearching() {
-    return this.state.filterValue !== '' ? true:false;
+    return this.state.filter.value !== '' ? true:false;
   }
 
-  _filterData() {
-    const category = this.state.filterCategory;
-    const value = this.state.filterValue;
-
-    if (this._isSearching()) {
-      return this.data.filter((entry) => {
-        return entry[category] == value || entry[category].indexOf(value) !== -1;
-      });
-    } else {
-      return this.data;
-    }
+  _resetFilters() {
+    this.setState({ filter: { category: '', value: '' }, data: this.data });
   }
 
-  _handleDataForSearchForm(category) {
-    let filteredData = [];
-    let finalData = [];
+  _changeFilters(category, value) {
+    let data = [];
 
-    this._filterData().map((entry) => {
-      for(let key in entry){
-        if (key === category) {
-          if (Array.isArray(entry[key])) {
-            filteredData.push(entry[key]);
-            filteredData = _.uniq(_.flatten(filteredData));
-            // if value is an array, we apply underscore' methods to flatten them and apply uniqueness
-          } else {
-            filteredData.indexOf(entry[key]) === -1 ? filteredData.push(entry[key]):null;
-            // check if an entry exists
+    this.state.data.filter((entry) => {
+      for(let key in entry) {
+        let keyValue = entry[key];
+        if (Array.isArray(keyValue)) {
+          keyValue.map((item) => {
+            if (key === category && item === value) {
+              data.push(entry);
+            }
+          });
+        } else {
+          if (key === category && keyValue === value) {
+            data.push(entry);
           }
         }
-      };
+      }
     });
-
-    filteredData.map((entry) => {
-      let obj = {};
-      obj.value = entry;
-      obj.label = entry;
-      finalData.push(obj);
-    });
-    // we take data from previous process and create an object
-    // with speficic properties for component react-select
-
-    return finalData;
-  }
-
-  _showVehicleDetail() {
-    return this._filterData().map((entry) => {
-      return <VehicleDetail key={entry.id} {...entry} />;
-    });
+    this.setState({ filter: { category, value }, data });
   }
 
   _showSearchForm() {
     return this.categories.map((category, index) => {
-      let data = this._handleDataForSearchForm(category);
+      let result = [];
+      let arr = [];
+
+      this.state.data.map((data) => {
+        for(let key in data){
+          let value = data[key];
+          if (key === category){
+            if (Array.isArray(value)){
+              arr.push(value);
+            } else {
+              result.indexOf(value) === -1 ? result.push(value):null;
+            }
+          }
+        };
+      });
+      if (arr.length !== 0) {
+        result = _.uniq(_.flatten(arr));
+      }
+      let options = [];
+      for(let entry in result) {
+        let obj = {};
+        obj.value = result[entry];
+        obj.label = result[entry];
+        options.push(obj);
+      }
       return (
         <SearchForm
-          options={data}
-          category={category}
-          filterValue={this.state.filterValue}
-          filterCategory={this.state.filterCategory}
-          onChange={this._setFilters}
           key={index}
+          category={category}
+          options={options}
+          filter={this.state.filter}
+          resetFilters={this._resetFilters}
+          onChange={this._changeFilters}
         />
       );
     });
   }
 
+  _showVehicleDetail(entry, index) {
+    return <VehicleDetail key={entry.id} {...entry} />;
+  }
+
   componentWillMount() {
-    this.setState({ loading: true });
     this._fetchData();
-    // fetch data from service 'trafficMeister' before a component is rendered
+    this.setState({ loading: true });
   }
 
   render() {
     const { t } = this.props;
-    let searchForm;
     let vehicleDetail;
+    let searchForm;
     let noDataMessage;
 
     if (this.state.loading) {
@@ -134,7 +137,7 @@ class TrafficMeisterContainer extends React.Component {
       if(this._isSearching()) {
         vehicleDetail = (
           <Grid className="vehicle-detail grid_center" col={3}>
-            {this._showVehicleDetail()}
+            {this.state.data.map(this._showVehicleDetail)}
           </Grid>
         );
       } else {
@@ -142,7 +145,7 @@ class TrafficMeisterContainer extends React.Component {
           <Notification className="no-filter-selected">
             {t('ERRORS.NO_FILTERS')}<br />
             {t('SEARCH.PLEASE_CHOOSE')}
-            </Notification>
+          </Notification>
         );
       }
       searchForm = (
