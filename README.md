@@ -12,7 +12,7 @@ Install [nodejs](https://nodejs.org/es/) if necessary and execute following comm
 I use `eslint`, `mocha` and `babel-node` to execute some scripts defined in `package.json`. If there is some problem with some of them, I recommend install it globally.
 
 ## Commands ##
-`$ npm run start -s` To start a development server.
+`$ npm run start -s` To start a development server at http://localhost:8080 
 
 `$ npm run build` To make a build in /build folder. 
 
