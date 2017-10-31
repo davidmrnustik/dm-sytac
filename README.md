@@ -1,6 +1,6 @@
 # About #
 This is an assignment application written in React. Online version of this application is available here: 
-https://dm-sytac.herokuapp.com/
+https://dm-trafficmeister.herokuapp.com/
 It is hosted on Heroku platform and there is a delay of booting an application (<20s) due to limitations of free acouunt.
 
 ## Instalation ##
